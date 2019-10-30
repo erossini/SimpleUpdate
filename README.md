@@ -1,17 +1,17 @@
 # SimpleUpdate
 Simple update with drag &amp; drop in ASP.NET Core webapp to Azure Storage
 
-To summarize what the code does, hereís a step-by-step explanation:
+To summarize what the code does, here‚Äôs a step-by-step explanation:
 
 * Upload a file submitted in a web browser via HTTP POST.
 * Convert the file to a byte array.
 * Save the file data to Azure Blob Storage.
 
-Letís take a deeper look at the code.
+Let‚Äôs take a deeper look at the code.
 
 1. The Index view under the Home controller displays one input field for selecting files for upload, and a submit button to complete the upload process.
 
-Hereís a snippet:
+Here‚Äôs a snippet:
 
 ```
 <form enctype="multipart/form-data" method="post">
@@ -23,7 +23,7 @@ Hereís a snippet:
 </form>
 ```
 
-2. Next, the Post method of the Home controller handles the uploaded file. Itís set up to loop through multiple uploaded files, and upload each file separately. Updated from the original blog post, there are now two options.
+2. Next, the Post method of the Home controller handles the uploaded file. It‚Äôs set up to loop through multiple uploaded files, and upload each file separately. Updated from the original blog post, there are now two options.
 
 * Option A: convert to byte array before upload
 * Option B: read directly from stream for blob upload
@@ -90,9 +90,11 @@ return true;
 For obvious security reasons, the connection string for the storage connection is kept in a config file that is not included in the Github repo. Instead there is a placeholder config file that can be renamed and updated to refer to any storage account that you own.
 From the Readme file, the instructions are:
 
-* Rename placeholder config file ìappsettings.Development.txtî to ìappsettings.Development.jsonî
-* Replace placeholder string ì<REPLACE_CONN_STRING>î with your Azure Storage Account connection string.
+* Rename placeholder config file ‚Äúappsettings.Development.txt‚Äù to ‚Äúappsettings.Development.json‚Äù
+* Replace placeholder string ‚Äú<REPLACE_CONN_STRING>‚Äù with your Azure Storage Account connection string.
 
 ## Drag and drop
 
 Another part of the code is for the drag and drop.
+
+In the Index you find a div where you can drop your files. With `jQuery` I detect when you drop your files and then I call **UploadMyFiles** in the **HomeController**. 

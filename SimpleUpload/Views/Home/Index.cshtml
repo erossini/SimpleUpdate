@@ -1,0 +1,78 @@
+﻿<script src="~/lib/jquery/jquery.js"></script>
+
+<form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Post">
+    <div class="form-group">
+        <div class="col-md-10">
+            <p>Upload one or more files using this form:</p>
+            <input type="file" name="files" multiple />
+        </div>
+    </div>
+    <div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Upload" />
+            </div>
+        </div>
+    </div>
+
+    <div id="fileBasket" class="filebasket" style="height: 50px; padding: 15px; border: 1px solid red;">
+        Drag-n-Drop files here.
+    </div>
+    <br />
+    <img id="progress" src="~/Images/loading.gif" />
+</form>
+
+<script>
+    $(document).ready(function () {
+        $("#progress").hide();
+
+        $("#fileBasket").on("dragenter", function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+        });
+
+        $("#fileBasket").on("dragover", function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+        });
+
+        $("#fileBasket").on("drop", function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            var files = evt.originalEvent.dataTransfer.files;
+            var fileNames = "";
+            if (files.length > 0) {
+                fileNames += "Uploading <br/>"
+                for (var i = 0; i < files.length; i++) {
+                    fileNames += files[i].name + "<br />";
+                }
+            }
+            $("#fileBasket").html(fileNames)
+
+            var data = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                data.append(files[i].name, files[i]);
+            }
+            $.ajax({
+                type: "POST",
+                url: "/home/UploadMyFiles",
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (message) {
+                    $("#fileBasket").html(message);
+                },
+                error: function () {
+                    $("#fileBasket").html
+                        ("There was error uploading files!");
+                },
+                beforeSend: function () {
+                    $("#progress").show();
+                },
+                complete: function () {
+                    $("#progress").hide();
+                }
+            });
+        });
+    });
+</script>

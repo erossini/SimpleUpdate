@@ -1,4 +1,4 @@
-# SimpleUpdate
+# Simple Update for ASP.NET Core and Azure Storage
 Simple update with drag &amp; drop in ASP.NET Core webapp to Azure Storage
 
 To summarize what the code does, here’s a step-by-step explanation:
@@ -51,7 +51,7 @@ using (var stream = formFile.OpenReadStream())
 
 You could change the code to upload them all to the same container, but that is up to you.
 
-3. Finally, the UploadToBlob() method in the Home controller uploads the image data to a storage container in three stages: create a CloudBlobClient object to represent the storage account, create a container within that storage account and sets its permissions, upload the image data.
+3. Finally, the `UploadToBlob()` method in the Home controller uploads the image data to a storage container in three stages: create a CloudBlobClient object to represent the storage account, create a container within that storage account and sets its permissions, upload the image data.
 
 ```
 CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
@@ -91,7 +91,7 @@ For obvious security reasons, the connection string for the storage connection i
 From the Readme file, the instructions are:
 
 * Rename placeholder config file “appsettings.Development.txt” to “appsettings.Development.json”
-* Replace placeholder string “<REPLACE_CONN_STRING>” with your Azure Storage Account connection string.
+* Replace placeholder string “_<REPLACE_CONN_STRING>_” with your Azure Storage Account connection string.
 
 ## Drag and drop
 
